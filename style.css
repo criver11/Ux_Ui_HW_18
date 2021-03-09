@@ -1,0 +1,344 @@
+    /* Let's start off with the usual boilerplate */
+    
+    @import url(https://use.typekit.net/rux0xrm.css);
+    * {
+        box-sizing: border-box;
+        padding: 0px;
+        margin: 0;
+        /* I like to set a universal transition while I work too, so I can see animations as I code */
+        transition: 240ms;
+    }
+    /* And now let's do some clever stuff - variables */
+    /* ...you might have seen me demo this once or twice already but as designers it's something we should always be doing whenever we get involved with development */
+    
+     :root {
+        --primary: #0A1E37;
+        --accent: #DB833D;
+        --background: #FFFEEC;
+        --font-body: verdana, sans-serif;
+        --font-display: bely-display, sans-serif;
+        /* You can use any variables you declade in the :root{} selector later on by providing `var(--primary)` etc as your value */
+    }
+    /* Don't repeat yourself so often with your code. Let the computer do the heavy lifting by trickling all your rules down */
+    a:link {
+        text-decoration: none;
+        text-emphasis-color: none;
+      }
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    li {
+        font-family: var(--font-display);
+        font-weight: 400;
+    }
+    
+    p {
+        font-family: var(--font-body);
+        /* Fixed pixel sizes are forgivable for some components - but not for fonts. It's very important you set these scalably using something like rem */
+        font-size: 1.12rem;
+        font-weight: 400;
+        line-height: 1.72rem;
+        padding-right : 2rem;
+        padding-bottom : 2rem;
+    }
+
+    p2 {
+        font-family: var(--font-body);
+        /* Fixed pixel sizes are forgivable for some components - but not for fonts. It's very important you set these scalably using something like rem */
+        font-size: 1.12rem;
+        font-weight: 400;
+        line-height: 1.72rem;
+        padding-right : 2rem;
+        padding-bottom : 2rem;
+        color: var(--accent);
+    }
+    /* Now you go through and do the individual styles */
+    
+    h1 {
+        font-size: 6rem;
+        color: var(--accent);
+        -webkit-text-stroke-width: 2px;
+        -webkit-text-stroke-color: var(--accent);
+    }
+    
+    h2 {
+        font-size: 5rem;
+        color: var(--primary);
+        -webkit-text-stroke-width: 2px;
+        -webkit-text-stroke-color: var(--accent);
+    }
+    
+    h3 {
+        font-size: 4rem;
+        color: var(--primary);
+    }
+    
+    h4 {
+        font-size: 3rem;
+        color: var(--background);
+        -webkit-text-stroke-width: 2px;
+        -webkit-text-stroke-color: var(--primary);
+    }
+    
+    h5 {
+        font-size: 2rem;
+        color: var(--primary);
+        -webkit-text-stroke-width: 2px;
+        -webkit-text-stroke-color: var(--accent);
+    }
+    
+    ol,
+    ul {
+        list-style: none;
+    }
+    
+    body {
+        background-color: var(--background);
+        overflow-x: hidden;
+    }
+    /* COMMON UTILITIES */
+    /* COLUMNS */
+    
+    .grid {
+        display: grid;
+        grid-template-columns: repeat(12, 1fr);
+    }
+    
+    .cols-4 {
+        grid-column: span 4;
+    }
+    
+    .cols-6 {
+        grid-column: span 6;
+    }
+    
+    .cols-8 {
+        grid-column: span 8;
+    }
+    /* And here's the responsive magic - we just snap everything to span 12 columns */
+    
+    @media only screen and (max-width: 600px) {
+        .grid * {
+            grid-column: span 12;
+        }
+    }
+    /* ...This only gets us so far though, so what I like to do is finish designing everything, then like a 'spot fixes' media query to do some custom stuff as needed. You'll see this towards the end of the style section*/
+    /* What you'll see is that I override this behaviour whenever I feel necessary to match your intended design */
+    /* COMPONENTS */
+    /* NAV */
+    
+    nav {
+        display: flex;
+        height: 96px;
+        background-color: var(--primary);
+        color: white;
+    }
+    /* This is a neat trick to select all immediate children of the nav container and give them permission to grow proprtionally and fill all available space */
+    /* We're also going to recursively set the children as flex parents too, so we can keep aligning things all the way down */
+    
+    nav>* {
+        flex-grow: 1;
+        display: flex;
+        align-items: center;
+    }
+    
+    .brand img {
+        width: auto;
+        height: 40px;
+        margin-left: 2rem;
+    }
+    
+    .links {
+        justify-content: flex-end;
+        text-decoration: none;
+    }
+    
+    .links * {
+        margin-right: 2rem;
+    }
+    
+    nav li:hover {
+        color: var(--accent);
+        cursor: pointer;
+    }
+    /* HERO */
+    
+    main {
+        height: 100vh;
+        padding-top: 1rem;
+        padding-bottom: 8rem;
+    }
+
+    .title {
+        z-index: 1;
+        /* translateX is the most convenient way to create overlaps */
+        transform: translateX(6rem);
+        /* The alight- and justify-self attrivutes are super handy when working with grids */
+        align-self: end;
+    }
+    
+    .title p {
+        font-size: 1.6rem;
+        color: var(--accent);
+    }
+    
+    .hero-img {
+        border-radius: 2rem;
+        background: url("./images/hero.png") no-repeat;
+        background-size: cover;
+        background-position: 12% 50%;
+    }
+    /* SECTION ABOUT */
+    
+    .about {
+        background-color: var(--primary);
+        color: var(--accent);
+        padding: 2rem;
+    }
+    
+    .about-img {
+        background: url("./images/flower.png") no-repeat left;
+        background-size: contain;
+        margin-right: 1rem;
+        min-height: 800px;
+    }
+    .about-me {
+        align-self: center;
+    }
+    .skills-adobe {
+        padding: 5rem;
+        background: url("./images/icons.png") no-repeat center;
+        width: 100%;
+        background-size: contain;
+        margin-right: 1rem;
+        min-height: 100px;
+
+
+
+    }
+
+    /* works section */
+    main-works {
+        background-color: #061E36;
+        height: 100vh;
+        padding-top: 1rem;
+        padding-bottom: 8rem;
+    }
+
+    .phone-img {
+        border-radius: 2rem;
+        background: url("./images/phone.png") no-repeat;
+        background-size:auto;
+        background-position: 50% 50%;
+    }
+
+    .title-works {
+        z-index: 1;
+        /* translateX is the most convenient way to create overlaps */
+        transform: translateX(6rem);
+        /* The alight- and justify-self attrivutes are super handy when working with grids */
+        align-self: end;
+    }
+
+    .title-works p {
+            font-size: 1.6rem;
+            color: var(--accent);
+        }
+        .tfl2x-img {
+            background: url("./images/tfl2x.png") no-repeat left;
+            background-size: contain;
+            margin-right: 1rem;
+            min-height: 800px;
+        }
+
+    .casestudy-img {
+        background: url("./images/casestudy.png") no-repeat center;
+        background-size: contain;
+        margin-right: 1rem;
+        min-height: 800px;
+        padding: 2rem;
+    }
+    .cer2-img {
+        background: url("./images/cer2.png") no-repeat left;
+        background-size: contain;
+        margin-right: 1rem;
+        min-height: 800px;
+    }
+    .uxui {
+        background-color: var(--background);
+        color: var(--accent);
+        padding: 4rem;
+    }
+
+    .overlay {
+        z-index: 1;
+        /* translateX is the most convenient way to create overlaps */
+        transform: translateX(6rem);
+        text-align: center;
+        text-justify: center;
+    }
+
+    /* contact section */
+
+    .contact {
+        background-color: var(--primary);
+        color: var(--accent);
+        padding: 4rem;
+    }
+    
+    .contact-img {
+        background: url("./images/window.png") no-repeat center;
+        background-size: contain;
+        margin-top: 2rem;
+        margin-right: 2rem;
+        min-height: 800px;
+    }
+    .contact-click {
+        margin-top: 2rem;
+        align-self: center;
+        justify-self: center;
+
+    }
+.contact-button {
+    padding: 4rem;
+    font-family: bely-display, sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 2rem;
+    color: #061E36;
+    text-transform: uppercase;
+    border-radius: 100px;
+    border-color: #E28444;
+    width: 100%;
+    background-color:  #E28444;
+}
+
+    /* RESPONSIVE SPOT FIXES */
+
+    
+    @media only screen and (max-width: 600px) {
+        .title {
+            align-self: start;
+            grid-column: span 4;
+            transform: translateX(2rem) translateY(2rem);
+        }
+        .title p {
+            font-size: .9rem;
+        }
+        .hero-img {
+            grid-column: span 8;
+            margin-top: 16rem;
+        }
+        /* Switch orders of content on collapse to mobile */
+        .about-me {
+            order: 0;
+        }
+        .about-img {
+            order: 1;
+        }
+    }
+
+
